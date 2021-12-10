@@ -1,0 +1,8 @@
+*.pyc
+.env
+.env_live
+.idea/
+__pycache__
+env/
+# custom compose files. unique environment requirements
+docker-compose-*.yml
