@@ -11,7 +11,8 @@ app.include_router(bet_info.router)
 
 origins = [
     'http://127.0.0.1:3000',
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'https://betdiary-ui.vercel.app',
 ]
 
 app.add_middleware(
