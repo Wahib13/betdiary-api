@@ -19,12 +19,30 @@ MONGO_STR = f'mongodb://{os.environ.get("MONGO_INITDB_USER")}:' \
             f'{os.environ.get("MONGO_INITDB_DATABASE_PROJECT")}' \
             f'?authSource=admin&retryWrites=true&w=majority'
 
-client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_STR)
-db = client.get_default_database()
-bet_info_collection = db['bet_info']
-users_collection = db['users']
+client = None
+db = None
+bet_info_collection = None
+users_collection = None
 
 api_key_header_scheme = APIKeyHeader(name='Token')
+
+
+async def connect_db():
+    """open database connection"""
+    global client
+    global db
+    global bet_info_collection
+    global users_collection
+    client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_STR)
+    db = client.get_default_database()
+    bet_info_collection = db['bet_info']
+    users_collection = db['users']
+
+
+async def close_db():
+    """Close database connection."""
+    global client
+    client.close()
 
 
 async def query_bet_infos(limit: int = 10):
