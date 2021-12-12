@@ -37,6 +37,7 @@ leagues = {
 def save_new_data_files():
     for league in leagues.values():
         r = requests.get(league.url_current_data, stream=True)
+        # todo make directory if does not exist
         filename = f'{os.environ.get("DATA_STORAGE_ROOT")}/{league.current_data_filename}'
         with open(filename, 'wb') as f:
             shutil.copyfileobj(r.raw, f)
